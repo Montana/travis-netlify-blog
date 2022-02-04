@@ -55,7 +55,9 @@ You'll notice in the `before_deploy` hook we are going to install the package `n
 yarn test:unit
 ```
 
-Travis CI is now on your Netlify app, that was pretty easy! 
+Travis CI is now on your Netlify app! To make sure, look for these following lines in your build log:
+
+<img width="772" alt="Screen Shot 2022-02-04 at 10 44 16 AM" src="https://user-images.githubusercontent.com/20936398/152585379-a004e75c-64de-4106-b306-3a3d778bb532.png">
 
 ## Conclusion 
 
@@ -64,7 +66,4 @@ There you go, you just got an inside look on how fast Travis CI can be setup on 
 As always if you have any questions, any questions at all, please email me at [montana@travis-ci.org](mailto:montana@travis-ci.org).
 
 Happy building!
-
-
-<!-- more --> 
 
