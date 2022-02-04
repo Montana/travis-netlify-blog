@@ -21,14 +21,45 @@ CI/CD is an automated process, specifically a sequence of events -- that without
 
 ## Getting started
 
-First lets disable Netlify's automatic builds so let's browse over to, `Build & Deploy > Continuous Deployment > Build Settings`. Now we need to fetch some of your `environment varibles`. So let's go to `Personal Access Token` and then select, `New Access Token`.
+First lets disable Netlify's automatic builds so let's browse over to, `Build & Deploy > Continuous Deployment > Build Settings`. Now we need to fetch some of your `environment varibles`. So let's go to `Personal Access Token` and then select, `New Access Token`, enter a quick description so you know what the access token is for, and let's generate it. 
 
-![image](https://user-images.githubusercontent.com/20936398/151615618-93853954-2162-4e62-9507-84659ae06151.png)
+## Getting Travis CI setup
 
+Now that you have your access token, let's add that token to your `environment variables` in Travis now:
+
+<img width="1426" alt="Screen Shot 2022-02-04 at 10 35 44 AM" src="https://user-images.githubusercontent.com/20936398/152584225-a748a2e0-6b01-4e76-9be7-9f0e6ed35e0d.png">
+
+Click `Add`,  and there you have it. Your `environment varbiables` are set. Let's look at a sample `.travis.yml`: 
+
+```yaml
+language: node_js
+cache:
+  directories:
+    - node_modules
+script:
+  - yarn test:unit
+before_deploy:
+  - npm install netlify-cli -g
+  - yarn build
+deploy:
+  provider: script
+  edge: true
+  script: netlify deploy --dir=dist --prod
+  on:
+    branch: main
+ ```
+ 
+You'll notice in the `before_deploy` hook we are going to install the package `netlify-cli` globally, and in this case we are going to be using `yarn`, so we're going to tell Travis to run `yarn build` -- which in essence will start building and running your app on Netlify. Don't forget to run your tests locally if need be:
+
+```bash
+yarn test:unit
+```
+
+Travis CI is now on your Netlify app, that was pretty easy! 
 
 ## Conclusion 
 
-There you go, you just got an inside look on how flexible pull request management is in Travis! Now, take full advantage of your branches and workflow.
+There you go, you just got an inside look on how fast Travis CI can be setup on Netlify, so why not give it a shot? 
 
 As always if you have any questions, any questions at all, please email me at [montana@travis-ci.org](mailto:montana@travis-ci.org).
 
